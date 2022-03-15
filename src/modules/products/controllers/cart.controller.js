@@ -6,9 +6,6 @@
  * /order/delete
  */
 
- const { request, response } = require('express');
- const mongoose = require('mongoose');
-const { cart } = require('../../../../../forum-node/src/modules/products/controllers/index.controller');
  const db = require("../../../../models");
  const {Op} = db.Sequelize;
  const Cart = db.Cart;
@@ -246,8 +243,7 @@ const addShop = async (req, res,next)=>{
 
 }
 
-const getCartDetails = async(req, res, next)=>{
-
+const getCartWithServices = async(req, res, next)=>{
     const {userId} = req.userInfo;
 
     let fetchCart = async ()=>{
@@ -278,7 +274,7 @@ const getCartDetails = async(req, res, next)=>{
         axiosObj.setConfig('user');
         for(let i=0;i<services.length;i++){
             var eachService = services[i];
-            let response = await axiosObj.getRequest('/api/merchant/service',{params:{serviceId:eachService.serviceId}});
+            let response = await axiosObj.getRequest(`merchant/service/${eachService.serviceId}`);
             addedServices[i] = {service:eachService, detail:response.data};
         }
         return addedServices;
@@ -317,6 +313,7 @@ const emptyCart = async (req, res, next)=>{
     }
 
 }
+
 const deleteCart = async(req, res, next)=>{
         const {cartId} = req.body; 
         try{
@@ -333,7 +330,7 @@ module.exports = {
     test,
     addService,
     removeService,
-    getCartDetails,
+    getCartWithServices,
     addShop,
     updateMultiServices,
     emptyCart,

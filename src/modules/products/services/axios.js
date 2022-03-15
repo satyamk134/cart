@@ -14,7 +14,8 @@ const getRequest = (url,params={})=>{
 }
 
 const setConfig = ()=>{
-    axiosObj.defaults.baseURL = 'http://localhost:4343/';
+    axiosObj.defaults.baseURL = process.env.MAIN_APP_URL;
+    console.log(process.env.MAIN_APP_URL);
 }
 
 module.exports =   {

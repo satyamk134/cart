@@ -7,6 +7,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+const envConfig = require('./config/index')();
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
