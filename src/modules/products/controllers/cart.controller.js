@@ -176,7 +176,7 @@ const updateMultiServices =  async (req,res, next)=>{
 const removeService = async  (req, res, next)=>{
     //add given service to cart
     //Cart.create()
-    const {serviceId} = req.body;
+    const {serviceId} = req.body.data;
     const {userId} = req.userInfo;
 
     let fetchCart = async ()=>{
@@ -286,11 +286,9 @@ const getCartWithServices = async(req, res, next)=>{
        let servicesInfo = await getServiceDetails(services);
        res.json({cartInfo:cart,data:servicesInfo});
     }catch(err){
-        console.log("Error is",err);
         if(err.status == 'error'){
-            return res.json({data:[],err:err}).status(200);
+            return res.json(err).status(200);
         }
-        
         next(err);
     }    
 }

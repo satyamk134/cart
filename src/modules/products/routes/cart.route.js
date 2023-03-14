@@ -8,7 +8,7 @@ router.route('/addShop').post(controller.cart.addShop);
 
 //add requested service to user cart
 router.route('/updateService').post(controller.cart.addService)
-                              .delete(controller.cart.addService);
+                              .delete(controller.cart.removeService);
 //add requested service to user cart
 router.route('/empty').delete(controller.cart.emptyCart);
 router.route('/delete').delete(controller.cart.deleteCart);
